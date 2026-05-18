@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Neon Air Draw - Hand Tracking</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="hud">
+      <div class="hud__title">
+        <span class="logo">⬤</span>
+        <div>
+          <div class="hud__name">Neon Air Draw</div>
+          <div class="hud__sub">MediaPipe Hands • WebRTC webcam • Real-time sketch</div>
+        </div>
+      </div>
+
+      <div class="controls" role="region" aria-label="Drawing controls">
+        <button id="clearBtn" class="btn">Clear</button>
+
+        <label class="field">
+          <span class="field__label">Color</span>
+          <input id="colorPicker" class="color" type="color" value="#00e5ff" aria-label="Brush color" />
+        </label>
+
+        <label class="field">
+          <span class="field__label">Brush size</span>
+          <input id="sizeSlider" class="slider" type="range" min="1" max="40" value="10" aria-label="Brush size" />
+          <span id="sizeValue" class="field__value">10</span>
+        </label>
+
+        <label class="toggle field">
+          <input id="mirrorToggle" type="checkbox" checked />
+          <span class="toggle__ui" aria-hidden="true"></span>
+          <span class="field__label">Mirror</span>
+        </label>
+      </div>
+    </header>
+
+    <main class="stage">
+      <section class="videoWrap" aria-label="Webcam preview">
+        <video id="video" class="video" playsinline muted></video>
+        <canvas id="landmarks" class="landmarks" aria-hidden="true"></canvas>
+      </section>
+
+      <canvas id="draw" class="draw" aria-label="Drawing canvas"></canvas>
+
+      <div id="instructions" class="instructions" aria-live="polite">
+        <div class="instructions__card">
+          <div class="instructions__title">Gestures</div>
+          <div class="gestureRow"><span class="gdot gpoint"></span> Point (only index finger) = Draw</div>
+          <div class="gestureRow"><span class="gdot gopen"></span> Open palm = Clear</div>
+          <div class="gestureRow"><span class="gdot gthumb"></span> Thumbs up = Change color</div>
+          <div class="hint">Tip: Keep your hand steady for smoother neon lines.</div>
+          <div id="status" class="status">Requesting camera…</div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__left">Low-latency render: requestAnimationFrame + lightweight smoothing.</div>
+      <div class="footer__right">Built for desktop & mobile</div>
+    </footer>
+  </div>
+
+  <!-- MediaPipe Hands (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
